@@ -4,23 +4,16 @@ import oandapy as od
 from talib.abstract import *
 import numpy as np
 import time as tm
-from tensorflow.models.image.cifar10.cifar10 import inputs
-
-account = od.API(environment="practice", access_token="e896ed820eea353d1adbe6493ea97f84-d334697e9d1ef241b2d9b8e5e2ca8c08", headers={'X-Accept-Datetime-Format': 'UNIX'})
-#hist = account.get_history(instrument="EUR_USD", granularity="M1", start="1420070400", count="5", candleFormat="midpoint")
-#ask = hist['candles']
-#size = len(ask)
-#start = ask.get('time')
-#end = ask[106].get('time')
-#print(hist)
-#print(ask)
-#print(end)
+import logging as log
 
 
 
-#tf.python_io.TFRecordWriter("EURUSD.tfrecord")
+
+#1420070400
+
 
 def getDataBatch(startTime="0", instrument="EUR_USD"):
+    account = od.API(environment="practice", access_token="", headers={'X-Accept-Datetime-Format': 'UNIX'})
     hist = account.get_history(instrument="EUR_USD", granularity="M1", start=startTime, count="5000", candleFormat="midpoint")
     data = hist['candles']
     close = np.ndarray([0])
@@ -406,15 +399,3 @@ data = expandData(startTime="142007040000000", instrument= "EUR_USD", endTime="1
 
 packData(data)   
     
-    
-    #tf.python_io.TFRecordWriter("EURUSD.tfrecord")
-    
-    
-    
-    
-    
-#input_file = pd.read_csv('./DAT_MT_EURUSD_M1_2015.csv', header=None, names=['date', 'time', 'open', 'high', 'low', 'close', 'vol'])
-
-#input_file.drop('date',axis=1, inplace=True)
-
-#print(input_file.head(10).to_string())
